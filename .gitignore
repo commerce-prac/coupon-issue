@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+/coupon-core/build
+/coupon-core/out
+/coupon-core/src/main/generated
+/load-test/__pycache__

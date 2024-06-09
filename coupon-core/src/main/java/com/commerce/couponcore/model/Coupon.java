@@ -1,5 +1,7 @@
 package com.commerce.couponcore.model;
 
+import com.commerce.couponcore.exception.CouponIssueException;
+import com.commerce.couponcore.exception.ErrorCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -58,10 +60,10 @@ public class Coupon extends BaseTimeEntity {
 
     public void issue() {
         if (!availableIssueQuantity()) {
-            throw new RuntimeException("발급 수량 검증");
+            throw new CouponIssueException(ErrorCode.COUPON_ISSUE_INVALID_QUANTITY);
         }
         if (!availableIssueDate()) {
-            throw new RuntimeException("발급 기한 검증");
+            throw new CouponIssueException(ErrorCode.COUPON_ISSUE_INVALID_DATE);
         }
         issuedQuantity++;
     }

@@ -1,8 +1,10 @@
 package com.commerce.couponcore.exception;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+@Getter
 @AllArgsConstructor
 public enum ErrorCode {
     // 400 BAD_REQUEST

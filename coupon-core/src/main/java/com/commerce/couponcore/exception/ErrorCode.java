@@ -13,7 +13,9 @@ public enum ErrorCode {
     // 404 NOT_FOUND
     COUPON_NOT_EXIST(HttpStatus.NOT_FOUND, "001", "Coupon not exist"),
     // 409 CONFLICT
-    COUPON_DUPLICATE(HttpStatus.CONFLICT, "001", "Coupon already issued");
+    COUPON_DUPLICATE(HttpStatus.CONFLICT, "001", "Coupon already issued"),
+    // 500 INTERNAL_SERVER_ERROR
+    LOCK_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "001", "Lock failed");
 
     private final HttpStatus httpStatus;
     private final String code;

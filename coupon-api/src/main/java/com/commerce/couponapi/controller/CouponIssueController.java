@@ -16,9 +16,15 @@ public class CouponIssueController {
 
     private final CouponIssueRequestService couponIssueRequestService;
 
-    @PostMapping("/issue")
-    public CouponIssueResponseDto issue(@RequestBody CouponIssueRequestDto requestDto) {
-        couponIssueRequestService.issueRequest(requestDto);
+    @PostMapping("/issue/lock/redis")
+    public CouponIssueResponseDto issueRedis(@RequestBody CouponIssueRequestDto requestDto) {
+        couponIssueRequestService.issueRequestWithRedisLock(requestDto);
+        return new CouponIssueResponseDto(true, null);
+    }
+
+    @PostMapping("/issue/lock/mysql")
+    public CouponIssueResponseDto issueMySQL(@RequestBody CouponIssueRequestDto requestDto) {
+        couponIssueRequestService.issueRequestWithMySQLLock(requestDto);
         return new CouponIssueResponseDto(true, null);
     }
 }

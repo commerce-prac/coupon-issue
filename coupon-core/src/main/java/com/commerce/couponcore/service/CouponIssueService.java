@@ -27,6 +27,13 @@ public class CouponIssueService {
     }
 
     @Transactional
+    public void issueWithMySQLLock(long couponId, long userId) {
+        Coupon coupon = findCouponWithLock(couponId);
+        coupon.issue();
+        saveCouponIssue(couponId, userId);
+    }
+
+    @Transactional
     public CouponIssue saveCouponIssue(long couponId, long userId) {
         checkAlreadyIssued(couponId, userId);
         CouponIssue couponIssue = CouponIssue.builder()
@@ -47,6 +54,12 @@ public class CouponIssueService {
     @Transactional(readOnly = true)
     public Coupon findCoupon(long couponId) {
         return couponJpaRepository.findById(couponId)
+                .orElseThrow(() -> new CouponIssueException(ErrorCode.COUPON_NOT_EXIST));
+    }
+
+    @Transactional(readOnly = true)
+    public Coupon findCouponWithLock(long couponId) {
+        return couponJpaRepository.findCouponWithLock(couponId)
                 .orElseThrow(() -> new CouponIssueException(ErrorCode.COUPON_NOT_EXIST));
     }
 }

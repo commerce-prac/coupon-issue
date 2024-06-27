@@ -8,9 +8,11 @@ import com.commerce.couponcore.repository.CouponIssueJpaRepository;
 import com.commerce.couponcore.repository.CouponIssueRepository;
 import com.commerce.couponcore.repository.CouponJpaRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class CouponIssueService {
@@ -47,7 +49,7 @@ public class CouponIssueService {
     public void checkAlreadyIssued(long couponId, long userId) {
         CouponIssue couponIssue = couponIssueRepository.findFirstCouponIssue(couponId, userId);
         if (couponIssue != null) {
-            throw new CouponIssueException(ErrorCode.COUPON_DUPLICATE);
+            throw new CouponIssueException(ErrorCode.COUPON_ALREADY_ISSUED);
         }
     }
 

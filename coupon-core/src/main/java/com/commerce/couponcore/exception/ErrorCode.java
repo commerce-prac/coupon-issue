@@ -17,7 +17,8 @@ public enum ErrorCode {
     COUPON_DUPLICATE(HttpStatus.CONFLICT, "001", "Coupon already issued"),
     // 500 INTERNAL_SERVER_ERROR
     LOCK_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "001", "Lock failed"),
-    FAIL_COUPON_ISSUE_REQUEST(HttpStatus.INTERNAL_SERVER_ERROR, "002", "Coupon issue request failed.");
+    FAIL_COUPON_ISSUE_REQUEST(HttpStatus.INTERNAL_SERVER_ERROR, "002", "Coupon issue request failed."),
+    FAILED_PULL_COUPON_ISSUE_REQUEST(HttpStatus.INTERNAL_SERVER_ERROR, "003", "Coupon issue request pulling failed.");
 
     private final HttpStatus httpStatus;
     private final String code;

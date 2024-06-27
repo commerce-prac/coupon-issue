@@ -67,4 +67,13 @@ public class Coupon extends BaseTimeEntity {
         }
         issuedQuantity++;
     }
+
+    public void checkIssuable() {
+        if (!availableIssueQuantity()) {
+            throw new CouponIssueException(ErrorCode.COUPON_ISSUE_INVALID_QUANTITY);
+        }
+        if (!availableIssueDate()) {
+            throw new CouponIssueException(ErrorCode.COUPON_ISSUE_INVALID_DATE);
+        }
+    }
 }

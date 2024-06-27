@@ -19,10 +19,18 @@ public class CouponIssueRedisService {
         if (!availableUserIssueQuantity(coupon.getId(), userId)) {
             throw new CouponIssueException(ErrorCode.COUPON_ALREADY_ISSUED);
         }
+        if (!availableCouponTotalQuantity(coupon.getId(), coupon.getTotalQuantity())) {
+            throw new CouponIssueException(ErrorCode.COUPON_ISSUE_INVALID_QUANTITY);
+        }
     }
 
     public boolean availableUserIssueQuantity(long couponId, long userId) {
         String key = CouponRedisUtils.getCouponIssueRequestKey(couponId);
         return !redisRepository.sIsMember(key, String.valueOf(userId));
+    }
+
+    public boolean availableCouponTotalQuantity(long couponId, long totalQuantity) {
+        String key = CouponRedisUtils.getCouponIssueRequestKey(couponId);
+        return redisRepository.setSize(key) < totalQuantity;
     }
 }

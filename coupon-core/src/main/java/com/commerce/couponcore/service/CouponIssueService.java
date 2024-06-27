@@ -23,7 +23,6 @@ public class CouponIssueService {
 
     @Transactional
     public void issue(long couponId, long userId) {
-        log.info("쿠폰 발행 시작 coupon id : {}, user id : {}", couponId, userId);
         Coupon coupon = findCoupon(couponId);
         coupon.issue();
         saveCouponIssue(couponId, userId);

@@ -33,4 +33,8 @@ public class RedisRepository {
     public void lPop(String key) {
         redisTemplate.opsForList().leftPop(key);
     }
+
+    public Long setSize(String key) {
+        return redisTemplate.opsForSet().size(key);
+    }
 }

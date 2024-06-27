@@ -21,4 +21,16 @@ public class RedisRepository {
     public void rPush(String key, String value) {
         redisTemplate.opsForList().rightPush(key, value);
     }
+
+    public Long listSize(String key) {
+        return redisTemplate.opsForList().size(key);
+    }
+
+    public String listIndex(String key, int index) {
+        return redisTemplate.opsForList().index(key, index);
+    }
+
+    public void lPop(String key) {
+        redisTemplate.opsForList().leftPop(key);
+    }
 }

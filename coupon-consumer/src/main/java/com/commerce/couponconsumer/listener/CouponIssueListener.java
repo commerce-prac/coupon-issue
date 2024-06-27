@@ -30,10 +30,11 @@ public class CouponIssueListener {
         var queueSize = getCouponIssueRequestSize();
         while (queueSize > 0) {
             var target = getIssueTarget();
-            couponIssueService.issue(target.couponId(), target.userId());
-            log.info("쿠폰 발행 완료. coupon id : {}, user id : {}", target.couponId(), target.userId());
             removeIssuedTarget();
             queueSize--;
+            log.info("쿠폰 발행 시작 coupon id : {}, user id : {}", target.couponId(), target.userId());
+            couponIssueService.issue(target.couponId(), target.userId());
+            log.info("쿠폰 발행 완료. coupon id : {}, user id : {}", target.couponId(), target.userId());
         }
     }
 

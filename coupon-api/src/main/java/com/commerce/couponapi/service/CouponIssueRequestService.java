@@ -19,9 +19,9 @@ public class CouponIssueRequestService {
     private final DistributeLockExecutor distributeLockExecutor;
 
     public void issueRequestWithRedisLock(CouponIssueRequestDto requestDto) {
-        distributeLockExecutor.execute(RedisLockUtils.getCouponLockName(requestDto.couponId()) + requestDto.couponId(),
+        distributeLockExecutor.execute(RedisLockUtils.getCouponLockName(requestDto.couponId()),
                 10000, 10000,
-                () -> couponIssueService.issue(requestDto.couponId(), requestDto.userId()));
+                () -> couponIssueService.issueWithRedisLock(requestDto.couponId(), requestDto.userId()));
         log.info("쿠폰 발급 완료. coupon id : {}, user id : {}", requestDto.couponId(), requestDto.userId());
     }
 
@@ -30,7 +30,11 @@ public class CouponIssueRequestService {
         log.info("쿠폰 발급 완료. coupon id : {}, user id : {}", requestDto.couponId(), requestDto.userId());
     }
 
-    public void asyncIssueRequest(CouponIssueRequestDto requestDto) {
-        asyncCouponIssueService.issue(requestDto.couponId(), requestDto.userId());
+    public void asyncIssueRequestWithRedisLock(CouponIssueRequestDto requestDto) {
+        asyncCouponIssueService.issueWithRedisLock(requestDto.couponId(), requestDto.userId());
+    }
+
+    public void asyncIssueRequestWithScript(CouponIssueRequestDto requestDto) {
+        asyncCouponIssueService.issueWithScript(requestDto.couponId(), requestDto.userId());
     }
 }

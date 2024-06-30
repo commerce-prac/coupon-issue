@@ -14,21 +14,27 @@ public class CouponIssueController {
 
     private final CouponIssueRequestService couponIssueRequestService;
 
-    @PostMapping("/v1/issue/lock/redis")
+    @PostMapping("/v1/issue/redis-lock")
     public CouponIssueResponseDto issueRedis(@RequestBody CouponIssueRequestDto requestDto) {
         couponIssueRequestService.issueRequestWithRedisLock(requestDto);
         return new CouponIssueResponseDto(true, null);
     }
 
-    @PostMapping("/v1/issue/lock/mysql")
+    @PostMapping("/v1/issue/mysql-lock")
     public CouponIssueResponseDto issueMySQL(@RequestBody CouponIssueRequestDto requestDto) {
         couponIssueRequestService.issueRequestWithMySQLLock(requestDto);
         return new CouponIssueResponseDto(true, null);
     }
 
     @PostMapping("/v1/issue-async")
-    public CouponIssueResponseDto issueAsync(@RequestBody CouponIssueRequestDto requestDto) {
-        couponIssueRequestService.asyncIssueRequest(requestDto);
+    public CouponIssueResponseDto issueAsyncWithRedisLock(@RequestBody CouponIssueRequestDto requestDto) {
+        couponIssueRequestService.asyncIssueRequestWithRedisLock(requestDto);
+        return new CouponIssueResponseDto(true, null);
+    }
+
+    @PostMapping("/v2/issue-async")
+    public CouponIssueResponseDto issueAsyncWithScript(@RequestBody CouponIssueRequestDto requestDto) {
+        couponIssueRequestService.asyncIssueRequestWithScript(requestDto);
         return new CouponIssueResponseDto(true, null);
     }
 }

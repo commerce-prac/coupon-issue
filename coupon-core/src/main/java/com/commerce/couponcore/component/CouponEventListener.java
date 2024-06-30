@@ -16,5 +16,6 @@ public class CouponEventListener {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     void issueComplete(CouponIssueCompleteEvent event) {
         couponCacheService.putCouponCache(event.couponId());
+        couponCacheService.putCouponLocalCache(event.couponId());
     }
 }

@@ -37,4 +37,10 @@ public class CouponIssueController {
         couponIssueRequestService.asyncIssueRequestWithScript(requestDto);
         return new CouponIssueResponseDto(true, null);
     }
+
+    @PostMapping("/v2/issue-async/local-cache")
+    public CouponIssueResponseDto issueAsyncWithScriptAndLocalCache(@RequestBody CouponIssueRequestDto requestDto) {
+        couponIssueRequestService.asyncIssueRequestWithScriptAndLocalCache(requestDto);
+        return new CouponIssueResponseDto(true, null);
+    }
 }

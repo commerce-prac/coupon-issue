@@ -39,6 +39,13 @@ public class AsyncCouponIssueService {
         redisRepository.issueRequest(couponId, userId, coupon.totalQuantity());
     }
 
+    public void issueWithScriptAndLocalCache(long couponId, long userId) {
+        CouponRedisEntity coupon = couponCacheService.getCouponLocalCache(couponId);
+        coupon.checkIssuable(); // 날짜 + 쿠폰 전체 발행 갯수
+        couponIssueRedisService.checkIssuable(coupon, userId);
+        redisRepository.issueRequest(couponId, userId, coupon.totalQuantity());
+    }
+
     private void issueRequest(long couponId, long userId) {
         CouponIssueRequest issueRequest = new CouponIssueRequest(couponId, userId);
         try {

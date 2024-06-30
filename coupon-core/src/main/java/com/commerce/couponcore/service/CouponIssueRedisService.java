@@ -2,8 +2,8 @@ package com.commerce.couponcore.service;
 
 import com.commerce.couponcore.exception.CouponIssueException;
 import com.commerce.couponcore.exception.ErrorCode;
-import com.commerce.couponcore.model.Coupon;
 import com.commerce.couponcore.repository.redis.RedisRepository;
+import com.commerce.couponcore.repository.redis.dto.CouponRedisEntity;
 import com.commerce.couponcore.util.CouponRedisUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ public class CouponIssueRedisService {
     private final RedisRepository redisRepository;
 
 
-    public void checkIssuable(Coupon coupon, Long userId) {
-        if (!availableUserIssueQuantity(coupon.getId(), userId)) {
+    public void checkIssuable(CouponRedisEntity coupon, Long userId) {
+        if (!availableUserIssueQuantity(coupon.id(), userId)) {
             throw new CouponIssueException(ErrorCode.COUPON_ALREADY_ISSUED);
         }
-        if (!availableCouponTotalQuantity(coupon.getId(), coupon.getTotalQuantity())) {
+        if (!availableCouponTotalQuantity(coupon.id(), coupon.totalQuantity())) {
             throw new CouponIssueException(ErrorCode.COUPON_ISSUE_INVALID_QUANTITY);
         }
     }

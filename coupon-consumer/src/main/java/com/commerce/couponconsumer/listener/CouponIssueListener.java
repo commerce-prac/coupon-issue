@@ -33,7 +33,7 @@ public class CouponIssueListener {
             removeIssuedTarget();
             queueSize--;
             log.info("쿠폰 발행 시작 coupon id : {}, user id : {}", target.couponId(), target.userId());
-            couponIssueService.issue(target.couponId(), target.userId());
+            couponIssueService.issueFromQueue(target.couponId(), target.userId());
             log.info("쿠폰 발행 완료. coupon id : {}, user id : {}", target.couponId(), target.userId());
         }
     }

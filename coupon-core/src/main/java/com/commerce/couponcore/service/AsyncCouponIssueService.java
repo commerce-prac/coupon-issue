@@ -3,9 +3,9 @@ package com.commerce.couponcore.service;
 import com.commerce.couponcore.component.DistributeLockExecutor;
 import com.commerce.couponcore.exception.CouponIssueException;
 import com.commerce.couponcore.exception.ErrorCode;
-import com.commerce.couponcore.model.Coupon;
 import com.commerce.couponcore.repository.redis.RedisRepository;
 import com.commerce.couponcore.repository.redis.dto.CouponIssueRequest;
+import com.commerce.couponcore.repository.redis.dto.CouponRedisEntity;
 import com.commerce.couponcore.util.CouponRedisUtils;
 import com.commerce.couponcore.util.RedisLockUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,19 +17,26 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AsyncCouponIssueService {
 
-    private final CouponIssueService couponIssueService;
     private final DistributeLockExecutor distributeLockExecutor;
     private final CouponIssueRedisService couponIssueRedisService;
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final RedisRepository redisRepository;
+    private final CouponCacheService couponCacheService;
 
-    public void issue(long couponId, long userId) {
-        Coupon coupon = couponIssueService.findCoupon(couponId);
-        coupon.checkIssuable();
+    public void issueWithRedisLock(long couponId, long userId) {
+        CouponRedisEntity coupon = couponCacheService.getCouponCache(couponId);
+        coupon.checkIssuable(); // 날짜 + 쿠폰 전체 발행 갯수
         distributeLockExecutor.execute(RedisLockUtils.getCouponLockName(couponId), 3000, 3000, () -> {
-            couponIssueRedisService.checkIssuable(coupon, userId);
+            couponIssueRedisService.checkIssuable(coupon, userId); // 사용자 중복 발급 + max 발행 갯수 제한
             issueRequest(couponId, userId);
         });
+    }
+
+    public void issueWithScript(long couponId, long userId) {
+        CouponRedisEntity coupon = couponCacheService.getCouponCache(couponId);
+        coupon.checkIssuable(); // 날짜 + 쿠폰 전체 발행 갯수
+        couponIssueRedisService.checkIssuable(coupon, userId);
+        redisRepository.issueRequest(couponId, userId, coupon.totalQuantity());
     }
 
     private void issueRequest(long couponId, long userId) {

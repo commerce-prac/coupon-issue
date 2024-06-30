@@ -37,4 +37,8 @@ public class CouponIssueRequestService {
     public void asyncIssueRequestWithScript(CouponIssueRequestDto requestDto) {
         asyncCouponIssueService.issueWithScript(requestDto.couponId(), requestDto.userId());
     }
+
+    public void asyncIssueRequestWithScriptAndLocalCache(CouponIssueRequestDto requestDto) {
+        asyncCouponIssueService.issueWithScriptAndLocalCache(requestDto.couponId(), requestDto.userId());
+    }
 }

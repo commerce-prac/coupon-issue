@@ -1,13 +1,13 @@
 spring:
   datasource:
     hikari:
-      jdbc-url: jdbc:mysql://localhost:3308/coupon?useUnicode=yes&characterEncoding=UTF-8&rewriteBatchedStatements=true
+      jdbc-url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3308/coupon?useUnicode=yes&characterEncoding=UTF-8&rewriteBatchedStatements=true}
       driver-class-name: com.mysql.cj.jdbc.Driver
       maximum-pool-size: 10
       max-lifetime: 30000
       connection-timeout: 3000
-      username: abcd
-      password: 1234
+      username: ${SPRING_DATASOURCE_USERNAME:abcd}
+      password: ${SPRING_DATASOURCE_PASSWORD:1234}
   jpa:
     hibernate:
       ddl-auto: none
@@ -15,10 +15,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
   data:
     redis:
-      host: localhost
-      port: 6380
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6380}
 ---
 spring:
   config:
@@ -38,5 +39,5 @@ spring:
         format_sql: true
   data:
     redis:
-      host: localhost
-      port: 6380
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6380}

@@ -40,3 +40,4 @@ out/
 /coupon-core/out
 /coupon-core/src/main/generated
 /load-test/__pycache__
+/grafana

@@ -70,7 +70,6 @@ public class CouponIssueService {
                 .orElseThrow(() -> new CouponIssueException(ErrorCode.COUPON_NOT_EXIST));
     }
 
-    @Transactional(readOnly = true)
     public Coupon findCouponWithLock(long couponId) {
         return couponJpaRepository.findCouponWithLock(couponId)
                 .orElseThrow(() -> new CouponIssueException(ErrorCode.COUPON_NOT_EXIST));

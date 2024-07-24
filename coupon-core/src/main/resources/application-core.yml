@@ -18,8 +18,10 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
   data:
     redis:
-      host: ${SPRING_REDIS_HOST:localhost}
-      port: ${SPRING_REDIS_PORT:6380}
+      sentinel:
+        master: ${SPRING_REDIS_SENTINEL_MASTER:myprimary}
+        nodes: ${SPRING_REDIS_SENTINEL_NODES:192.168.128.6:5000,192.168.128.6:5001,192.168.128.6:5002}
+      password: ${SPRING_REDIS_PASSWORD:1111}
 ---
 spring:
   config:
@@ -39,5 +41,7 @@ spring:
         format_sql: true
   data:
     redis:
-      host: ${SPRING_REDIS_HOST:localhost}
-      port: ${SPRING_REDIS_PORT:6380}
+      sentinel:
+        master: ${SPRING_REDIS_SENTINEL_MASTER:myprimary}
+        nodes: ${SPRING_REDIS_SENTINEL_NODES:192.168.128.6:5000,192.168.128.6:5001,192.168.128.6:5002}
+      password: ${SPRING_REDIS_PASSWORD:1111}

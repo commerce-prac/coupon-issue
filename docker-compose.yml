@@ -84,35 +84,18 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://coupon-mysql:3306/coupon
       SPRING_DATASOURCE_USERNAME: abcd
       SPRING_DATASOURCE_PASSWORD: 1234
-      SPRING_REDIS_HOST: coupon-redis
-      SPRING_REDIS_PORT: 6380
+      SPRING_REDIS_SENTINEL_MASTER: myprimary
+      SPRING_REDIS_SENTINEL_NODES: sentinel-1:5000,sentinel-2:5001,sentinel-3:5002
+      SPRING_REDIS_PASSWORD: 1111
       SERVER_PORT: 8080
       EUREKA_SERVER_URL: http://host.docker.internal:8761/eureka/
     command: [ "java", "-jar", "/app.jar" ]
     depends_on:
       - mysql
       - master
-
-  spring-app-2:
-    image: eclipse-temurin:21-jdk
-    restart: unless-stopped
-    ports:
-      - "8084:8084"
-    volumes:
-      - ./coupon-api/build/libs/coupon-api.jar:/app.jar
-      - /opt/images
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://coupon-mysql:3306/coupon
-      SPRING_DATASOURCE_USERNAME: abcd
-      SPRING_DATASOURCE_PASSWORD: 1234
-      SPRING_REDIS_HOST: coupon-redis
-      SPRING_REDIS_PORT: 6380
-      SERVER_PORT: 8084
-      EUREKA_SERVER_URL: http://host.docker.internal:8761/eureka/
-    command: [ "java", "-jar", "/app.jar" ]
-    depends_on:
-      - mysql
-      - master
+      - sentinel-1
+      - sentinel-2
+      - sentinel-3
 
   gateway:
     image: eclipse-temurin:21-jdk

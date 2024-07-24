@@ -12,17 +12,26 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 @Configuration
 public class RedisConfig {
 
-    @Value("${spring.data.redis.host}")
-    private String host;
+    @Value("${spring.data.redis.sentinel.master}")
+    private String master;
 
-    @Value("${spring.data.redis.port}")
-    private int port;
+    @Value("${spring.data.redis.sentinel.nodes}")
+    private String sentinelNodes;
+
+    @Value("${spring.data.redis.password}")
+    private String password;
 
     @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
-        String address = "redis://" + host + ":" + port;
-        config.useSingleServer().setAddress(address);
+        String[] nodes = sentinelNodes.split(",");
+        for (int i = 0; i < nodes.length; i++) {
+            nodes[i] = "redis://" + nodes[i].trim();
+        }
+        config.useSentinelServers()
+                .setMasterName(master)
+                .addSentinelAddress(nodes)
+                .setPassword(password);
         return Redisson.create(config);
     }
 

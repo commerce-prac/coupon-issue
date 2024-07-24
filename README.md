@@ -7,20 +7,22 @@
 - 인증/인가 서버([링크]())
 
 ## 사용 기술
-<img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white">
-<img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=Spring&logoColor=white">
-<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white">
-<img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white">
-<img src="https://img.shields.io/badge/Redis-red?style=flat-square">
-<img src="https://img.shields.io/badge/Grafana-red?style=flat-square">
-<img src="https://img.shields.io/badge/Prometheus-orange?style=flat-square">
-<img src="https://img.shields.io/badge/Locust-yellow?style=flat-square">
-<img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=flat-square">
-<img src="https://img.shields.io/badge/Spring WebFlux-6DB33F?style=flat-square">
-<img src="https://img.shields.io/badge/Spring Cloud Gateway-6DB33F?style=flat-square">
-<img src="https://img.shields.io/badge/Spring Cloud Netflix-6DB33F?style=flat-square">
-<img src="https://img.shields.io/badge/Spring Authorization Server-6DB33F?style=flat-square">
-<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat-square">
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+    <img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white">
+    <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=Spring&logoColor=white">
+    <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white">
+    <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white">
+    <img src="https://img.shields.io/badge/Redis-red?style=flat-square">
+    <img src="https://img.shields.io/badge/Grafana-red?style=flat-square">
+    <img src="https://img.shields.io/badge/Prometheus-orange?style=flat-square">
+    <img src="https://img.shields.io/badge/Locust-yellow?style=flat-square">
+    <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=flat-square">
+    <img src="https://img.shields.io/badge/Spring WebFlux-6DB33F?style=flat-square">
+    <img src="https://img.shields.io/badge/Spring Cloud Gateway-6DB33F?style=flat-square">
+    <img src="https://img.shields.io/badge/Spring Cloud Netflix-6DB33F?style=flat-square">
+    <img src="https://img.shields.io/badge/Spring Authorization Server-6DB33F?style=flat-square">
+    <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat-square">
+</div>
 
 ## 트러블 슈팅 및 성능 개선
 ### 쿠폰 발급 서버
